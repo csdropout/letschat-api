@@ -33,6 +33,7 @@ app.use(
 app.use(passport.authenticate());
 app.use(passport.session());
 
+app.use("/", authRouter);
 app.use("/users", userRouter);
 app.use("/messages", messageRouter);
 
