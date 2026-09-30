@@ -2,7 +2,9 @@ import { prisma } from "../lib/prisma.js";
 import { body, validationResult } from "express-validator";
 import bcrypt from "bcryptjs";
 
-export async function postLogin(req, res) {}
+export async function postLogin(req, res) {
+  res.json({ message: "Login successful" });
+}
 
 export const postSignUp = [
   [
