@@ -1,9 +1,10 @@
 import "dotenv/config";
 import express from "express";
+import expressSession from "express-session";
 import cors from "cors";
-import userRouter from "./routes/userRouter";
-import messageRouter from "./routes/messageRouter";
-import authRouter from "./routes/authRouter";
+import userRouter from "./routes/userRouter.js";
+import messageRouter from "./routes/messageRouter.js";
+import authRouter from "./routes/authRouter.js";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import { prisma } from "./lib/prisma.js";
 import passport from "passport";
