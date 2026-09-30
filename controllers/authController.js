@@ -32,7 +32,12 @@ export const postSignUp = [
     return res.status(201).json({ message: "User created successfully" });
   },
 ];
-export async function postLogout(req, res) {
-  req.logout();
+
+export async function postLogout(req, res, next) {
+  req.logout((err) => {
+    if (err) {
+      next(err);
+    }
+  });
   return res.status(200).json({ message: "Logged out successfully" });
 }
