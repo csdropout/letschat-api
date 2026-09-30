@@ -31,7 +31,7 @@ app.use(
     }),
   }),
 );
-app.use(passport.authenticate());
+app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/", authRouter);
