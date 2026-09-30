@@ -9,7 +9,7 @@ passport.use(
       const user = await prisma.user.findUnique({ where: { username } });
       if (!user) return done(null, false);
 
-      const isValid = await bcrypt.compare(password, user.password);
+      const isValid = await bcrypt.compare(password, user.hash);
       if (isValid) return done(null, user);
       else return done(null, false);
     } catch (err) {
