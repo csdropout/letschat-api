@@ -9,5 +9,4 @@ export async function getUser(req, res) {
   if (!user) return res.status(404).json({ error: "User does not exist" });
   return res.json(user);
 }
-export async function updateUser(req, res) {}
 export async function searchUsers(req, res) {}
