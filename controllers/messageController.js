@@ -34,7 +34,36 @@ export async function getMessageList(req, res) {
 
   return res.json(result);
 }
-export async function getConversation(req, res) {}
+
+export async function getConversation(req, res) {
+  const { id } = req.user;
+  const { username } = req.params;
+
+  const otherUser = await prisma.user.findUnique({
+    where: { username },
+  });
+
+  const messages = await prisma.message.findMany({
+    include: {
+      sender: {
+        select: { username: true },
+      },
+      receiver: {
+        select: { username: true },
+      },
+    },
+    where: {
+      OR: [
+        { senderId: id, receiverId: otherUser.id },
+        { senderId: otherUser.id, receiverId: id },
+      ],
+    },
+    orderBy: { createdAt: "asc" },
+  });
+
+  return res.json(messages);
+}
+
 export async function postMessage(req, res) {
   const { id } = req.user;
   const { username } = req.params;
