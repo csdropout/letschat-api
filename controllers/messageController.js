@@ -35,4 +35,23 @@ export async function getMessageList(req, res) {
   return res.json(result);
 }
 export async function getConversation(req, res) {}
-export async function postMessage(req, res) {}
+export async function postMessage(req, res) {
+  const { id } = req.user;
+  const { username } = req.params;
+  const { text } = req.body;
+
+  const receiver = await prisma.user.findUnique({
+    select: { id: true },
+    where: { username },
+  });
+
+  if (!receiver) {
+    return res.status(404).json({ error: "User does not exist" });
+  }
+
+  const message = await prisma.message.create({
+    data: { text, senderId: id, receiverId: receiver.id },
+  });
+
+  return res.json(message);
+}
