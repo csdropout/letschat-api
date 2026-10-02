@@ -69,6 +69,10 @@ export async function postMessage(req, res) {
   const { username } = req.params;
   const { text } = req.body;
 
+  if (!text || !text.trim()) {
+    return res.status(400).json({ error: "Text cannot be empty" });
+  }
+
   const receiver = await prisma.user.findUnique({
     select: { id: true },
     where: { username },
