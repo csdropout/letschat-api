@@ -9,6 +9,7 @@ import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import { prisma } from "./lib/prisma.js";
 import passport from "passport";
 import "./config/passport.js";
+import profileRouter from "./routes/profileRouter.js";
 
 const app = express();
 app.use(express.static("public"));
@@ -37,6 +38,7 @@ app.use(passport.session());
 app.use("/", authRouter);
 app.use("/users", userRouter);
 app.use("/messages", messageRouter);
+app.use("/profile", profileRouter);
 
 const port = process.env.PORT || 3000;
 app.listen(port, (err) => {
