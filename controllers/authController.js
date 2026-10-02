@@ -3,7 +3,10 @@ import { body, validationResult } from "express-validator";
 import bcrypt from "bcryptjs";
 
 export async function postLogin(req, res) {
-  res.json({ message: "Login successful" });
+  if (!req.user) {
+    return res.status(401).json({ error: "Invalid username or password" });
+  }
+  return res.json({ message: "Login successful" });
 }
 
 export const postSignUp = [
