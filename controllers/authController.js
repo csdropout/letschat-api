@@ -15,7 +15,7 @@ export const postSignUp = [
   async function (req, res) {
     const result = validationResult(req);
     if (!result.isEmpty()) {
-      res.status(400).json({ errors: result.array() });
+      return res.status(400).json({ errors: result.array() });
     }
     const { username, password } = req.body;
 
