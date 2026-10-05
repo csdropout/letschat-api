@@ -43,6 +43,10 @@ export async function getConversation(req, res) {
     where: { username },
   });
 
+  if (!otherUser) {
+    return res.status(404).json({ error: "User does not exist" });
+  }
+
   const messages = await prisma.message.findMany({
     include: {
       sender: {
