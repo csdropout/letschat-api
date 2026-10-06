@@ -10,6 +10,10 @@ export async function updateProfile(req, res) {
   const user = req.user;
   const { username, bio } = req.body;
 
+  if (!username.trim()) {
+    return res.status(400).json({ error: "Username is required" });
+  }
+
   const isExistingUser = await prisma.user.findUnique({
     where: {
       username,
@@ -18,6 +22,7 @@ export async function updateProfile(req, res) {
       },
     },
   });
+
   if (isExistingUser)
     return res.status(409).json({ error: "Username is in use" });
 
