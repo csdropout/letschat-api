@@ -38,9 +38,13 @@ export const postSignUp = [
 
 export async function postLogout(req, res, next) {
   req.logout((err) => {
-    if (err) {
-      next(err);
-    }
+    if (err) return next(err);
+
+    req.session.destroy((err) => {
+      if (err) return next(err);
+
+      res.clearCookie("connect.sid");
+      res.sendStatus(204);
+    });
   });
-  return res.status(200).json({ message: "Logged out successfully" });
 }
