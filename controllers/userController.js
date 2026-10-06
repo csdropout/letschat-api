@@ -15,7 +15,11 @@ export async function searchUsers(req, res) {
   const results = await prisma.user.findMany({
     select: { id: true, username: true },
     where: {
-      username: { contains: username, mode: "insensitive" },
+      username: {
+        contains: username,
+        mode: "insensitive",
+        not: req.user.username,
+      },
     },
     orderBy: { username: "asc" },
     take: 10,
